@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/chi_city"
+    tools:context="com.mlabs.bbm.firstandroidapp_morningclass.SignUp">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etRegUser"
+        android:hint="--UserName--"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textColorHint="#fff"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/etRegPass"
+        android:hint="--Password--"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textColorHint="#fff"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/etRegUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:id="@+id/etConPass"
+        android:hint="--Confirm Password--"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textColorHint="#fff"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/etRegPass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/btnReg"
+        android:textColor="#ffff"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/etConPass"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etLname"
+        android:hint="--Last Name--"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textColorHint="#fff"
+        android:layout_above="@+id/etRegUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFname"
+        android:hint="--First Name--"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textColorHint="#fff"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/etLname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

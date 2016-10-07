@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
 
         <activity android:name=".MainActivity"
             android:label="FirstAndroidApp_MorningClass">
@@ -27,6 +28,16 @@
 
         <activity android:name=".NextScreen">
         </activity>
+=======
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".UserAct" />
+        <activity android:name=".OnTouchActivity"></activity>
+        <activity android:name=".SignUp"></activity>
+>>>>>>> 459b7343915162fff1a55fba7a9c3476db23974f
     </application>
 
 </manifest>

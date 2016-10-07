@@ -1,63 +1,111 @@
 package com.mlabs.bbm.firstandroidapp_morningclass;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.text.TextUtils;
+import android.app.AlertDialog;
+import android.text.InputType;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+
 public class MainActivity extends AppCompatActivity {
+
+    EditText password, email;
+    TextView Show, reglink;
+    Button login;
+    boolean showpassword = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login1 = (Button) findViewById(R.id.login);
-        login1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final EditText Email1 = (EditText) findViewById(R.id.Email);
-                final EditText Pw1 = (EditText) findViewById(R.id.Pw);
+        email = (EditText) findViewById(R.id.etUser);
+        password = (EditText) findViewById(R.id.etPass);
+        Show = (TextView) findViewById(R.id.tvshow);
+        reglink = (TextView) findViewById(R.id.tvSignUp);
+        login = (Button) findViewById(R.id.bLog);
 
-                String email = Email1.getText().toString();
-                String password = Pw1.getText().toString();
+        final DataBaseAdapter sqlDB = new DataBaseAdapter(getApplicationContext());
 
-                if (!validateEmail(email)) {
-                    Email1.setError("Not a valid email address!");
-                } else if (!validatePassword(password)) {
-                    Pw1.setError("Not a valid password!");
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if (checkLogin(emailAdd.getText().toString(), pword.getText().toString()) == true) {
+                if (sqlDB.validateUserFromEmail(email.getText().toString(), password.getText().toString()) == true
+                        || sqlDB.validateUserFromUName(email.getText().toString(), password.getText().toString()) == true) {
+                    //Toast.makeText(getApplicationContext(), "Connecting...", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, UserAct.class);
+                    startActivity(intent);
+
                 } else {
-                    Email1.setError(null);
-                    Pw1.setError(null);
-                    doLogin();
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            MainActivity.this).create();
+                    alertDialog.setMessage("Invalid Email Address/Password");
+                    alertDialog.show();
                 }
             }
+
+        });
+
+        Show.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        password.setTransformationMethod(null);
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        password.setTransformationMethod(new PasswordTransformationMethod());
+                        return false;
+                }
+                return false;
+
+            }
+        });
+
+
+        reglink.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Intent signup = new Intent(MainActivity.this, SignUp.class);
+                startActivity(signup);
+
+            }
+
         });
     }
 
-    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
-    private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-    private Matcher matcher;
 
-    public boolean validateEmail(String email) {
-        matcher = pattern.matcher(email);
-        return matcher.matches();
+    public boolean checkLogin(String email, String password) {
+        String regexEmail = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+
+        Pattern p = Pattern.compile(regexEmail);
+        Matcher m = p.matcher(email);
+
+        if (password.length() >= 8 && m.matches()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean validatePassword(String Pw) {
-        return Pw.length() >=8;
-    }
-
-    public void doLogin() {
-        Toast.makeText(getApplicationContext(), "Successfully Logged-in", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(MainActivity.this, NextScreen.class);
-
-        startActivity(i);
-
+    @Override
+    protected  void onPause(){
+        super.onPause();
+        finish();
 
     }
 

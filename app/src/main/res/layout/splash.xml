@@ -3,7 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@drawable/lipstick">
+=======
+    android:background="@drawable/chi">
+>>>>>>> 459b7343915162fff1a55fba7a9c3476db23974f
 
     <ImageView android:id="@+id/splash"
         android:layout_width="wrap_content"
