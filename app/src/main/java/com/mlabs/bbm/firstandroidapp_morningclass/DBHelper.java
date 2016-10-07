@@ -142,5 +142,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from "+ tableAccount,null);
         return res;
     }
+    public Cursor getInfo(DBHelper dop)
+    {
+        SQLiteDatabase sq = dop.getReadableDatabase();
+        String[] columns = {EA, PW, id, DC, FN,LN, UN };
+        Cursor cr = sq.query(tableAccount, columns, null, null, null, null, null);
+        return cr;
+    }
 }
 

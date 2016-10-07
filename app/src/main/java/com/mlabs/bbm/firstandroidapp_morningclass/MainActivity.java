@@ -1,9 +1,11 @@
 package com.mlabs.bbm.firstandroidapp_morningclass;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.text.method.PasswordTransformationMethod;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,19 +39,43 @@ public class MainActivity extends AppCompatActivity {
         Button = (Button) findViewById(R.id.button);
         signup = (Button) findViewById(R.id.signbutton);
         show = (TextView) findViewById(R.id.show);
+        final Context CTX = this;
 
 
         Button.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if (isEmailValid(uT.getText().toString(),pT.getText().toString())){
-                    Intent intent = new Intent(MainActivity.this,login.class);
-                    startActivity(intent);
+                String uname = uT.getText().toString();
+                String pass = pT.getText().toString();
+                if(uname == "")
+                {
+                    uT.setError("Please enter Email");
                 }
-                else
-                    Toast.makeText(getApplicationContext(), "Invalid", Toast.LENGTH_LONG).show();
+                else if(pass == "")
+                {
+                    pT.setError("Please enter Password");
+                }
+                else {
+                    DBHelper db = new DBHelper(CTX);
+                    Cursor cr = db.getInfo(db);
+                    cr.moveToFirst();
+                    boolean logstat = false;
 
+                    do {
+                        if ((uname.equals(cr.getString(3)) || uname.equals(cr.getString(4))) && (pass.equals(cr.getString(5))))
+                        {
+                            logstat = true;
+                        }
+                    } while (cr.moveToNext());
+                    if (logstat == true) {
+                        Intent intent = new Intent(MainActivity.this, login.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Invalid Email or Password", Toast.LENGTH_LONG).show();
+                    }
+                }
 
             }
         });
