@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/FinalsReg.iml" filepath="$PROJECT_DIR$/FinalsReg.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/FirstAndroidApp_Morning.iml" filepath="$PROJECT_DIR$/FirstAndroidApp_Morning.iml" />
+>>>>>>> daf1a508abdefe32f94f5c4ee200722e92e1d82b
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
