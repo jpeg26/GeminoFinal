@@ -53,8 +53,8 @@ public class Midterms extends AppCompatActivity {
         String x = "", y = "";
         float delx, dely;
 
-        delx = inix-finx;
-        dely = iniy-finy;
+        delx = finx-(inix);
+        dely = iniy-(finy);
 
         if(inix == finy){
         }else if(inix > finx){
