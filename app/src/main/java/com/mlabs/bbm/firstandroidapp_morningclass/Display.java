@@ -8,12 +8,12 @@ import android.os.Bundle;
 /**
  * Created by benjarmanalili on 31/07/2016.
  */
-public class SplashScreen extends Activity {
+public class Display extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        setContentView(R.layout.display);
 
         Thread timerThread = new Thread() {
             public void run() {
@@ -22,7 +22,7 @@ public class SplashScreen extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent intent = new Intent(Display.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
