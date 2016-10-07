@@ -1,36 +1,51 @@
 package com.mlabs.bbm.firstandroidapp_morningclass;
 
-/**
- * Created by Girard on 23/09/2016.
- */
-
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-public class DataBaseHelper extends SQLiteOpenHelper{
 
 
-    public DataBaseHelper(Context context, String name, CursorFactory factory,
-                          int version) {
-        super(context, name, factory, version);
-    }
+public class DataBaseHelper {
 
-    @Override
-    public void onCreate(SQLiteDatabase _db) {
-        _db.execSQL(DataBaseAdapter.DATABASE_CREATE);
+    private int id;
+    private String uNam, eMail, pass, fNam, lNam;
+
+    public DataBaseHelper() {}
+
+    public void setAccounts(String uNam, String eMail, String pass, String fNam, String lNam) {
+        this.uNam = uNam;
+        this.eMail = eMail;
+        this.pass = pass;
+        this.fNam = fNam;
+        this.lNam = lNam;
 
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion) {
-        Log.w("TaskDBAdapter", "Upgrading from version " + _oldVersion + " to "
-                + _newVersion + ", which will destroy all old data");
-        _db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
-
-        onCreate(_db);
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getuNam() {
+        return this.uNam;
+    }
+
+    public String geteMail() {
+        return this.eMail;
+    }
+
+    public String getPass() {
+        return this.pass;
+    }
+
+    public String getfNam() {
+        return this.fNam;
+    }
+
+    public String getlNam() {
+        return this.lNam;
+    }
+
+
 
 }

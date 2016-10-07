@@ -1,83 +1,107 @@
 package com.mlabs.bbm.firstandroidapp_morningclass;
 
-/**
- * Created by Girard on 17/09/2016.
- */
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.media.session.PlaybackState;
 
-public class DataBaseAdapter {
+public class DataBaseAdapter extends SQLiteOpenHelper{
 
-    static final String DATABASE_NAME = "login.db";
-    static final int DATABASE_VERSION = 1;
-    public static final int NAME_COLUMN = 1;
-    static final String DATABASE_CREATE = "create table " + "LOGIN" + "( "
-            + "ID" + " integer primary key autoincrement,"
-            + "USERNAME  text,PASSWORD text); ";
-    public SQLiteDatabase db;
-    private final Context context;
-    private DataBaseHelper dbHelper;
+    private static final int dbVer = 1;
 
-    public DataBaseAdapter(Context _context) {
-        context = _context;
-        dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+    private static final String dbNam = "registeredAccounts";
+
+    public DataBaseAdapter(Context context) {
+        super(context, dbNam, null, dbVer);
     }
 
-    public DataBaseAdapter open() throws SQLException {
-        db = dbHelper.getWritableDatabase();
-        return this;
+    //creates table
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String createAccTable = "CREATE TABLE accounts (id INTEGER PRIMARY KEY, username TEXT UNIQUE, email TEXT UNIQUE, password TEXT, firstname TEXT, lastname TEXT, datecreated TEXT);";
+        db.execSQL(createAccTable);
     }
 
-    public void close() {
+    //updates table
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF TABLE EXISTS accounts");
+        onCreate(db);
+    }
+
+    public void addAcc(DataBaseHelper acc) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("id", getAccCount());
+        values.put("username", acc.getuNam());
+        values.put("email", acc.geteMail());
+        values.put("password", acc.getPass());
+        values.put("firstname", acc.getfNam());
+        values.put("lastname", acc.getlNam());
+
+
+        db.insert("accounts", null, values);
         db.close();
     }
 
-    public SQLiteDatabase getDatabaseInstance() {
-        return db;
-    }
-
-    public void insertEntry(String userName, String password) {
-        ContentValues newValues = new ContentValues();
-        newValues.put("USERNAME", userName);
-        newValues.put("PASSWORD", password);
-        db.insert("LOGIN", null, newValues);
-
-    }
-
-    public int deleteEntry(String UserName) {
-
-        String where = "USERNAME=?";
-        int numberOFEntriesDeleted = db.delete("LOGIN", where,
-                new String[] { UserName });
-        return numberOFEntriesDeleted;
-    }
-
-    public String getSinlgeEntry(String userName) {
-        Cursor cursor = db.query("LOGIN", null, " USERNAME=?",
-                new String[] { userName }, null, null, null);
-        if (cursor.getCount() < 1) {
-            cursor.close();
-            return "NOT EXIST";
+    public boolean checkEmail(String mail) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM accounts WHERE email = '" + mail + "'";
+        Cursor c = db.rawQuery(query, null);
+        if (c.getCount() <= 0) {
+            c.close();
+            return true;
         }
-        cursor.moveToFirst();
-        String password = cursor.getString(cursor.getColumnIndex("PASSWORD"));
+        c.close();
+        return false;
+    }
+
+    public boolean checkUser(String user) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM accounts WHERE username = '" + user + "'";
+        Cursor c = db.rawQuery(query, null);
+        if (c.getCount() <= 0) {
+            c.close();
+            return true;
+        }
+        c.close();
+        return false;
+    }
+
+    public boolean loginCheck(String credential, String pass) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT username, email, password FROM accounts", null);
+        String u, e, p;
+        if(cursor.moveToFirst()){
+            do{
+                e = cursor.getString(cursor.getColumnIndex("email"));
+                u = cursor.getString(cursor.getColumnIndex("username"));
+                p = cursor.getString(cursor.getColumnIndex("password"));
+                if (u.equals(credential) || e.equals(credential)) {
+                    if (p.equals(pass))
+                        return true;
+                }
+            }while(cursor.moveToNext());
+        } return false;
+    }
+
+    public int getAccCount() {
+        String countQuery = "SELECT * FROM accounts";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
         cursor.close();
-        return password;
+        return count;
     }
 
-    public void updateEntry(String userName, String password) {
-        ContentValues updatedValues = new ContentValues();
-        updatedValues.put("USERNAME", userName);
-        updatedValues.put("PASSWORD", password);
-
-        String where = "USERNAME = ?";
-        db.update("LOGIN", updatedValues, where, new String[] { userName });
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM accounts",null);
+        return res;
     }
-
 
 }

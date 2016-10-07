@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eMail"
+        android:id="@+id/eMailR"
         android:text="name@example.com"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
@@ -34,18 +34,38 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/rPass"
-        android:layout_below="@+id/eMail"
+        android:id="@+id/rPassR"
+        android:layout_below="@+id/eMailR"
+        android:layout_alignLeft="@+id/eMailR"
+        android:layout_alignStart="@+id/eMailR"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/eMail"
-        android:layout_alignStart="@+id/eMail" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="User Name"
+        android:text="Password"
+        android:id="@+id/textView3"
+        android:layout_alignBottom="@+id/rPassR"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Confirm"
+        android:id="@+id/textView4"
+        android:layout_alignBottom="@+id/rCpassR"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email"
         android:id="@+id/textView2"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
@@ -55,32 +75,84 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Password"
-        android:id="@+id/textView3"
-        android:layout_alignBottom="@+id/rPass"
+        android:text="Username"
+        android:id="@+id/textView7"
+        android:layout_marginBottom="27dp"
+        android:layout_above="@+id/eMailR"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Last Name"
+        android:id="@+id/textView6"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="First Name"
+        android:id="@+id/textView8"
+        android:layout_above="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="23dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/rCpass"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/rPass"
-        android:layout_alignStart="@+id/rPass"
-        android:layout_alignRight="@+id/rPass"
-        android:layout_alignEnd="@+id/rPass" />
+        android:id="@+id/rCpassR"
+        android:layout_below="@+id/rPassR"
+        android:layout_alignLeft="@+id/rPassR"
+        android:layout_alignStart="@+id/rPassR"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Confirm"
-        android:id="@+id/textView4"
-        android:layout_alignBottom="@+id/rCpass"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/uNameR"
+        android:layout_alignBaseline="@+id/textView7"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignLeft="@+id/eMailR"
+        android:layout_alignStart="@+id/eMailR"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/lNameR"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignLeft="@+id/fNameR"
+        android:layout_alignStart="@+id/fNameR"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/fNameR"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:layout_alignBottom="@+id/textView8"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/uNameR"
+        android:layout_alignStart="@+id/uNameR" />
 
 </RelativeLayout>

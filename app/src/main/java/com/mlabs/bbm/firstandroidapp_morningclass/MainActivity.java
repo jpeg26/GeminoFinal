@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 
     EditText User, Pass, showPass;
     Button AccessBtn, signUpBtn;
-    DataBaseAdapter DataBaseAdapter;
+    DataBaseAdapter db = new DataBaseAdapter(this);
 
     @Override
     protected  void onCreate(Bundle savedInstanceState) {
@@ -27,8 +27,6 @@ public class MainActivity extends Activity {
         User = (EditText) findViewById(R.id.Uname);
         Pass = (EditText) findViewById(R.id.Pword);
         showPass = (EditText) findViewById(R.id.show);
-        DataBaseAdapter=new DataBaseAdapter(this);
-        DataBaseAdapter=DataBaseAdapter.open();
 
 
         AccessBtn.setOnClickListener(new View.OnClickListener() {
@@ -39,18 +37,14 @@ public class MainActivity extends Activity {
                 String userName=User.getText().toString();
                 String password=Pass.getText().toString();
 
-                String storedPassword=DataBaseAdapter.getSinlgeEntry(userName);
-
-                if(password.equals(storedPassword) && validEmailadd(User.getText().toString(), Pass.getText().toString()))
-                {
-                    Intent intent = new Intent(MainActivity.this, Loggedin.class);
+                if (db.loginCheck(userName, password)){
+                    Intent intent = new Intent(MainActivity.this,Loggedin.class );
                     startActivity(intent);
+                    finish();
+                }
 
-                }
                 else
-                {
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_LONG).show();
-                }
 
             }
         });
@@ -80,14 +74,6 @@ public class MainActivity extends Activity {
         });
     }
 
-
-    boolean validEmailadd(String x, String y){
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(x).matches() && y.length() >= 8 && y.length() !=0){
-            return true;
-        }
-        else
-            return false;
-    }
 
     @Override
     protected  void onPause(){
